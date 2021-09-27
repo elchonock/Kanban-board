@@ -734,43 +734,43 @@ body {
   font-weight: 600;
 }
 
-._todo .column__title {
+#_todo .column__title {
   background-color: #227fab;
   -webkit-box-shadow: 0 0 15px #227fab;
           box-shadow: 0 0 15px #227fab;
 }
 
-._inProgress .column__title {
+#_inProgress .column__title {
   background-color: #22ab40;
   -webkit-box-shadow: 0 0 15px #22ab40;
           box-shadow: 0 0 15px #22ab40;
 }
 
-._done .column__title {
+#_done .column__title {
   background-color: #df9432;
   -webkit-box-shadow: 0 0 15px #df9432;
           box-shadow: 0 0 15px #df9432;
 }
 
-._delete .column__title {
+#_delete .column__title {
   background-color: #8d8b87;
   -webkit-box-shadow: 0 0 15px #8d8b87;
           box-shadow: 0 0 15px #8d8b87;
 }
 
-._todo .column__item {
+#_todo .column__item {
   background-color: rgba(34, 127, 171, 0.1);
 }
 
-._inProgress .column__item {
+#_inProgress .column__item {
   background-color: rgba(34, 171, 64, 0.1);
 }
 
-._done .column__item {
+#_done .column__item {
   background-color: rgba(223, 148, 50, 0.1);
 }
 
-._delete .column__item {
+#_delete .column__item {
   background-color: rgba(141, 139, 135, 0.1);
 }
 

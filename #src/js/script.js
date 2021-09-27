@@ -1,7 +1,8 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", function() {
-
+//---------------------------------------------------------------------------------------------------------------------
+//**************class to get, add, update and remove items of localStorage***************************************************************************************
     class KanbanAPI{
         static getItems(columnId) {
             const column = read().find(column=> column.id == columnId);
@@ -104,10 +105,150 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
-    // console.log(KanbanAPI.insertItem(2, 'new'));
 
-    KanbanAPI.deleteItem(553715);
 
+
+//--------------------------------------------------------------------------------------------------
+//--------New Class --creating board elems-----------------------------------------------------------------------------
+    class Kanban{
+        constructor(root){
+            this.root = root;
+            Kanban.columns().forEach(column => {
+                //create an instance of column class
+                const columnView = new Column(column.dataId, column.id, column.title);
+
+                this.root.appendChild(columnView.elements.root);
+            });
+        }
+
+        static columns() {
+            return [
+                {dataId: 1, id: '_todo', title: 'To Do'},
+                {dataId: 2, id: '_inProgress', title: 'In Progress'},
+                {dataId: 3, id: '_done', title: 'Done'},
+                {dataId: 4, id: '_delete', title: 'Delete'}
+            ];
+
+        }
+
+    }
+
+
+
+//***************Column class************************************************************************************
+//***************************************************************************************************
+    class Column {
+        constructor(dataId, id, title) {
+            this.elements = {};
+            this.elements.root = Column.createRoot();
+            this.elements.title = this.elements.root.querySelector('.column__title span');
+            this.elements.items = this.elements.root.querySelector('.column__items');
+            this.elements.addBtn = this.elements.root.querySelector('.column__button');
+            
+            this.elements.root.id = id;
+            this.elements.root.dataset.id = dataId;
+            this.elements.title.textContent = title;
+
+            this.elements.addBtn.addEventListener('click', () => {
+                //TODO: add item---------------
+                const newItem = KanbanAPI.insertItem(dataId, "");
+
+                this.renderItem(newItem);
+
+            });
+
+            KanbanAPI.getItems(dataId).forEach(item => {
+                this.renderItem(item);
+            });
+
+        }
+
+        static createRoot() {
+            const range = document.createRange();
+            range.selectNode(document.body);
+            return range.createContextualFragment(`
+            <div class="board__column column" id="">
+                <h2 class="column__title "> <span></span></h2>
+                <div class="column__content">
+                    <div class="column__items">
+
+                    </div>
+                    <button class="column__button column__item _add">+Add</button>
+                </div>
+            </div>
+
+            `).children[0];
+
+        }
+        renderItem(data) {
+            //create an item instance------------
+            const item = new Item(data.id, data.content);
+
+            this.elements.items.appendChild(item.elements.root);
+
+        }
+
+
+    }
+
+
+
+
+//****************Class Item***********************************************************
+//***************************************************************************
+    class Item {
+        constructor(id, content) {
+            this.elements = {};
+            this.elements.root = Item.createItemRoot();
+            this.elements.input = this.elements.root.querySelector('.column__item-input');
+
+            this.elements.root.dataset.id = id;
+            this.elements.input.textContent = content;
+            this.content = content; //??
+
+            const onBlur = () => {
+                const newContent = this.elements.input.textContent.trim();
+                if (newContent == this.content) {
+                    return;
+                }
+                this.content = newContent;
+                KanbanAPI.updateItem(id, {content: this.content});
+            };
+
+            this.elements.input.addEventListener('blur', onBlur);
+            this.elements.root.addEventListener('dblclick', () => {
+                const check = confirm('Are you sure you want to delete this item?');
+                if (check) {
+                    KanbanAPI.deleteItem(id);
+                    this.elements.input.removeEventListener('blur', onBlur);
+                    this.elements.root.parentElement.removeChild(this.elements.root);
+                }
+            });
+
+        }
+
+        static createItemRoot() {
+            const range = document.createRange();
+            range.selectNode(document.body);
+
+            return range.createContextualFragment(`
+            <div class="column__item _draggable" draggable="true">
+                <div class="column__item-input" contenteditable="true"> 
+                </div>
+            </div>
+            `).children[0];
+        }
+
+
+    }
+
+
+        // console.log(KanbanAPI.insertItem(2, 'new'));
+        // KanbanAPI.insertItem(2, 'new');
+
+        // KanbanAPI.deleteItem(272914);
+        // console.log(read());
+    new Kanban(document.querySelector(".board__wrapper"));
 
 
 

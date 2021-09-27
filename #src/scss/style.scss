@@ -175,39 +175,39 @@ body{
 
 
 
-._todo .column__title{
+#_todo .column__title{
 
     background-color: $blue;
     box-shadow: 0 0 15px $blue;
 }
-._inProgress .column__title{
+#_inProgress .column__title{
     background-color: $green;
     box-shadow: 0 0 15px $green;
 }
-._done .column__title{
+#_done .column__title{
     background-color: $orange;
     box-shadow: 0 0 15px $orange;
 }
-._delete .column__title{
+#_delete .column__title{
     background-color: $grey;
     box-shadow: 0 0 15px $grey;
 }
 
-._todo .column__item{
+#_todo .column__item{
 
     background-color: rgba(34, 127, 171, 0.1);
     // color: rgba(34, 127, 171, 0.1);
     // background-color: rgba(251, 251, 251, 0.5);
 }
-._inProgress .column__item{
+#_inProgress .column__item{
     background-color: rgba(34, 171, 64, 0.1);
     // color: rgba(34, 171, 64, 0.1);
 }
-._done .column__item{
+#_done .column__item{
     background-color:rgba(223, 148, 50, 0.1);
     // color:rgba(223, 148, 50, 0.1);
 }
-._delete .column__item{
+#_delete .column__item{
     background-color: rgba(141, 139, 135, 0.1);
     // color: rgba(141, 139, 135, 0.1);
 }
