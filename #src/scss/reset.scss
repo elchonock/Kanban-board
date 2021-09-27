@@ -1,0 +1,53 @@
+// очистить все отступы и границы
+*{
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+// Свойства width и height будут включать в себя значения 
+// padding и border, но не margin
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+// убрать линии обводки у некоторых браузеров
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+// для удобства сразу сделать эти элементы блочными
+nav,footer,header,aside{display: block;}
+
+// уравнивают поведение шрифтов и элементов 
+// для разных браузеров 
+// (например запрещат самовольное увеличение шрифта на айфонах)
+html, body{
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+// эти теги по умолчанию не наследуют семейство шрифта
+// настраиваем, чтобы наследовали:
+input,button,textarea{font-family: inherit;}
+
+input::-ms-clear{display: none;} // убирает крестик в интернет эксплорере
+button{cursor: pointer;}
+button::-moz-focus-inner{padding: 0; border: 0;} // убирает лишние отступы в firefox для кнопок
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;} // чистятся стили маркирвоанных списков
+img{vertical-align: top;} // это свойство только для строчных элементов(top -  выравнивание по верхнему краю строки;)
+
+h1,h2,h3,h4,h5,h6{font-size: inherit; font-weight: 400;}
+
+
+
+
+

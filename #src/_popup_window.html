@@ -1,0 +1,64 @@
+<div class="popup__window _popupForm">
+    <div class="form">
+        <form action="#" class="form__body">
+            <h1 class="form__title">Свяжитесь со мной</h1>
+            <div class="contact_form_line_decor"></div>
+            <div class="form__item">
+                <label for="formName1" class="form__label">Имя*:</label>
+                <input id="formName1" type="text" name="name" class="form__input _req">
+            </div>
+            <div class="form__item">
+                <label for="formEmail1" class="form__label">E-mail*:</label>
+                <input id="formEmail1" type="email" name="email" class="form__input _req">
+            </div>
+            <div class="form__item">
+                <div class="form__label">Какая фотосессия вас интересует?</div>
+                <div class="options">
+                    <div class="options__item">
+                        <input id="weddingPhoto1" value="wedding" type="radio" name="photoType" class="options__input" checked>
+                        <label for="weddingPhoto1" class="options__label"> <span>Свадебная фотосессия:</span> </label>
+                    </div>
+                    <div class="options__item">
+                        <input id="portraitPhoto1" value="portrait" type="radio" name="photoType" class="options__input">
+                        <label for="portraitPhoto1" class="options__label"><span>Индивидуальная портретная фотосессия:</span> </label>
+                    </div>
+                    <div class="options__item">
+                        <input id="familyPhoto1" value="family" type="radio" name="photoType" class="options__input">
+                        <label for="familyPhoto1" class="options__label"> <span>Семейная фотосессия:</span> </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form__item">
+                <label for="formMessage1" class="form__label">Добавить сообщение:</label>
+                <textarea name="message" id="formMessage1" class="form__input"></textarea>
+            </div>
+            <div class="form__item">
+                <label for="formMessage2" class="form__label">Тариф</label>
+                <select name="price" class="select">
+                    <option value="one hour" selected>1час - 1500</option>
+                    <option value="three hours" selected>3часа - 4000</option>
+                    <option value="more" selected>Больше</option>
+                </select> 
+            </div>
+            <div class="form__item">
+                <div class="form__label">Прикрепить референс:</div>
+                <div class="file">
+                    <div class="file__item">
+                        <input id="formReference1" accept=".jpg, .png, .gif, .webp" type="file" name="reference" class="file__input">
+                        <div class="file__button">Выбрать</div>
+                    </div>
+                    <div class="file__preview"></div>
+                </div>
+            </div>
+            <div class="form__item">
+                <div class="checkbox">
+                    <input id="formAgreement1" checked type="checkbox" name="agreement" class="checkbox__input _req">
+                    <label for="formAgreement1" class="checkbox__label"><span>Я даю свое согласие на обработку персональных данных в соответствии с <a href="#">условиями*</a></span></label>
+                </div>
+            </div>
+            <button type="submit" class="form__button">Отправить</button>
+        </form>
+        <div class="closeForm"></div>
+    </div>
+    
+</div>

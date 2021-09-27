@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Услуги профессионального фотографа. Семейная, свадебная и портретная съемка. Фотосессия Киев и Украина.">
+    <meta name="keywords" content="фотограф киев недорого, Александр Парфенюк, киев фотосессия цена, семейная фотосессия киев">
+    <meta name="robots" content="none">
+    <!-- не забудь потом включить индексацию -->
+    <title>Kanban board</title>
+    <link rel="stylesheet" href="css/style.min.css">
+    <link rel="shortcut icon" href="img/badger.png" type="image/x-icon">
+</head>
+<body>
+    <!-- <script>
+        window.addEventListener("load", (e)=>{
+            const preloader = document.querySelector(".preloader");
+            setTimeout(function () {
+                 
+                preloader.classList.add("preloader_done");     
+            }, 500);
+        });
+    </script>
+    <div class="preloader">
+        <div class="preloader__img"></div>
+    </div> -->
+    <div class="wrapper">
+        <!-- @@include("_header.html") -->
+        <main class="page"> 
+            
+            <section class="board ">
+
+                <div class="board__wrapper _container">
+
+                    <div class="board__column column _todo" id="todo">
+                        <h2 class="column__title "> <span>To Do</span></h2>
+                        <div class="column__content">
+                            <div class="column__items">
+                                <div class="column__item _draggable"></div>
+                                <div class="column__item _draggable"></div>
+                                <div class="column__item _dropzone"></div>
+                            </div>
+                            <button class="column__button column__item _add">+Add</button>
+                        </div>
+                    </div>
+                    <div class="board__column column _inProgress" id="inProgress">
+                        <h2 class="column__title"> <span>In Progress</span></h2>
+                        <div class="column__content">
+                            <div class="column__items">
+                                <div class="column__item _draggable"></div>
+                                <div class="column__item _draggable"></div>
+                            </div>
+                            <button class="column__button column__item _add">+Add</button>
+                        </div>
+                    </div>
+                    <div class="board__column column _done" id="done">
+                        <h2 class="column__title"> <span>Done</span></h2>
+                        <div class="column__content">
+                            <div class="column__items">
+                                <div class="column__item _draggable"></div>
+                                <div class="column__item _draggable"></div>
+                            </div>
+                            <button class="column__button column__item _add">+Add</button>
+                        </div>
+                    </div>
+                    <div class="board__column column _delete" id="delete">
+                        <h2 class="column__title"> <span>Delete</span></h2>
+                        <div class="column__content">
+                            <div class="column__items">
+                                <div class="column__item _draggable"></div>
+                                <div class="column__item _draggable"></div>
+                            </div>
+                            <button class="column__button column__item _add">+Add</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>   
+
+            
+        </main>
+        @@include("_footer.html")  
+    </div>
+<script src="js/script.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+@import "all_colors_variables.scss";
+
+.preloader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: $colorOne;
+    overflow: hidden;
+    opacity: 1;
+    z-index: 333;
+    visibility: visible;
+    transition: all ease-out 1s;
+    &__img {
+        position: absolute;
+        top:50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        border: 9px solid $colorInput;
+        border-right-color: #93B9BD;
+        animation: preload infinite linear 1s;
+        box-shadow: $colorTwo 0 0 3px 3px;
+    }
+    &_done{
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes preload {
+    from{
+        transform: translate(-50%, -50%)  rotate(0deg);        
+    }
+    to{
+        transform: translate(-50%, -50%) rotate(360deg);  
+    }    
+}

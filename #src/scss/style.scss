@@ -1,0 +1,227 @@
+@mixin font($font_name, $file_name, $weight, $style) {
+    @font-face {
+    font-family: $font_name;
+    font-display: swap;
+    src: url("../fonts/#{$file_name}.woff") format("woff"), url("../fonts/#{$file_name}.woff2") format("woff2");
+    font-weight: #{$weight};
+    font-style: #{$style};
+    }
+}
+
+
+@import "fonts.scss";
+@import "reset.scss";
+@import "header.scss";
+@import "footer.scss";
+
+// @import "timer.scss";
+
+// @import "preloader.scss";
+
+
+$white:#fafafa;
+$blue: rgba(34, 127, 171, 1);
+$green: rgb(34, 171, 64);
+$orange: rgb(223, 148, 50);
+$grey: rgb(141, 139, 135);
+$bg:rgb(207, 202, 203);
+$darkGreen:rgb(81, 126, 75);
+$text: #333;
+
+
+
+body{
+    background-color: $bg;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif; 
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: $text;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.page{
+    flex: 1 0 auto;
+    width: 100%;
+    height: 100%;
+   
+}
+
+._container{
+    max-width: 1370px;
+}
+
+
+
+//-----board----------------------
+
+.board {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top:80px;
+    // background-color: $bg;
+
+    &__wrapper{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        // align-items: center;
+        width: 100%;
+        height: 100%;
+
+    }
+   
+    // .board__column
+    &__column {
+ 
+    }
+}
+
+
+.column {
+    flex: 1 1 25%;
+    margin: 25px 10px 10px 10px;
+
+    
+
+    &__content {
+        // background-color: $white;
+        background-color: rgba(251, 255, 255, 0.5);
+        border-radius:10px;
+        min-height: 600px;
+        margin: 5px 0px;
+        padding: 5px;
+        box-shadow: 0 0 15px rgb(182, 181, 181);
+    }
+    &__item{
+        min-height: 45px;
+        border-radius:10px;
+        margin: 15px;
+        cursor: pointer;
+
+        &._dropzone {
+            min-height: 15px;
+            margin: -17px 15px;
+            transition: all ease 0.15s 0s;
+            border-radius: 0px;
+            opacity: 0;
+
+            &._active{
+                filter: hue-rotate(90deg) saturate(8) contrast(100%) brightness(0.5);
+                min-height: 25px;
+                opacity: 0.8;
+                transition: all ease 0.15s 0s;
+                opacity: 1;
+
+            }
+
+        }
+
+    }
+}
+
+
+
+
+
+
+.column__title {
+    border-radius: 10px;    
+    height: 45px;
+    // text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // user-select: none;
+    span{
+        font-size: 25px;
+        font-weight: 500;
+    }
+}
+
+.column__content {
+    display: flex;
+    flex-direction: column;
+    // justify-content: flex-start;
+}
+
+.column__items {
+    flex: 1 1 auto;
+}
+
+.column__button {
+    flex: 0 0 auto;
+    color: $text;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+
+
+
+
+._todo .column__title{
+
+    background-color: $blue;
+    box-shadow: 0 0 15px $blue;
+}
+._inProgress .column__title{
+    background-color: $green;
+    box-shadow: 0 0 15px $green;
+}
+._done .column__title{
+    background-color: $orange;
+    box-shadow: 0 0 15px $orange;
+}
+._delete .column__title{
+    background-color: $grey;
+    box-shadow: 0 0 15px $grey;
+}
+
+._todo .column__item{
+
+    background-color: rgba(34, 127, 171, 0.1);
+    // color: rgba(34, 127, 171, 0.1);
+    // background-color: rgba(251, 251, 251, 0.5);
+}
+._inProgress .column__item{
+    background-color: rgba(34, 171, 64, 0.1);
+    // color: rgba(34, 171, 64, 0.1);
+}
+._done .column__item{
+    background-color:rgba(223, 148, 50, 0.1);
+    // color:rgba(223, 148, 50, 0.1);
+}
+._delete .column__item{
+    background-color: rgba(141, 139, 135, 0.1);
+    // color: rgba(141, 139, 135, 0.1);
+}
+
+
+
+//-----header-------------------------
+//------------------------------------
+.header{
+    flex: 0 0 auto;
+}
+
+//footer--------------------------------
+//-------------------------------------
+.footer{
+    flex: 0 0 auto;
+}
