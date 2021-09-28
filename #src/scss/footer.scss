@@ -11,6 +11,7 @@ $footer_font_family: "OpenSans-Regular";
 
 
 
+
 .footer{
 
     font-family: $footer_font_family, Arial, Helvetica, sans-serif;
@@ -20,91 +21,114 @@ $footer_font_family: "OpenSans-Regular";
     text-align: center;
 
 
-    position: relative;
-    flex: 1 0 auto;
+    // position: relative;
+    // flex: 0 0 auto;
     width: 100%;
-    height: 295px;
-    z-index: 50;
+    height: 155px;
+    // z-index: 50;
     // height: 80vh;
+    // height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 
 
     &_row{
-        position: absolute;
+        // position: relative;
         display: flex;
         flex-direction: column;
         width: 100%;
+       
         height: 100%;
+        background-color: $darkGreen;
        
         box-sizing: border-box;
-        padding: 0 10px;
+        // padding: 0 10px;
+        flex: 1;
     }
-
     
     &_up{
-        color: #fff;
-        font-size: 17px;
-        letter-spacing: 1.7px;
-        padding-top: 8px;
+        // color: #fff;
+        // font-size: 17px;
+        // letter-spacing: 1.7px;
+        // padding-top: 8px;
         position: relative;
-        flex: 1 0 33.333%;
+        // flex: 1 0 33.333%;
+        margin: 0 0 3px 0;
+        
+        a{
+            line-height: 17px;
+            color: #fff;
+            font-size: 17px;
+            letter-spacing: 1.7px;
+            padding: 8px;
+            display: inline-block;
+            border: solid 2px transparent;
+            transition: all ease 0.3s 0s;
+
+            &:hover{
+            border: solid 2px $white;
+            transition: all ease 0.3s 0s;
+
+        }
+        }
+        
     }
+
     &_copyright{
         color:rgb(237, 245, 245);
         
         position: relative;
-        flex: 1 0 33.333%;
+        // flex: 1 0 33.333%;
+        background-color: $darkGreen;
+        width: 100%;
+        
     }
+
     &_icon{
-        padding-top: 40px;     
+        padding-top: 25px;     
         position: relative;
-        flex: 1 0 33.333%;
+        // flex: 1 0 33.333%;
         align-self: center;
         & a{
             width: 57px;
             height: 57px;
             display: block;
             z-index: 51;
-            
             }
     }
-}   
+
+    &_el{
+        flex: 1 0 33.333%;
+
+    }
+}  
+
 
 div.img_before{
     display: block;
-    width: 57px;
-    height: 57px;
     background-color: $darkGreen;
-    z-index: 1;
-    &:hover img.footer_first_icon{
-        visibility: hidden;
-    }
-    &:not(hover) img.footer_first_icon{
-        visibility: visible;
-    }
-    & img.footer_second_icon{
+    &::before{
+        content: "";
+        width: 45px;
+        height: 45px;
         position: absolute;
-        bottom: 1px;
-        left: 0;
-        
+        top: 31px;
+        left: 6px;
+        border: solid 2px transparent;
+        transition: all ease 0.3s 0s;
     }
-    &:hover img.footer_second_icon{
-        visibility: visible;
+    &:hover::before{
+        border: solid 2px $white;
+        transition: all ease 0.3s 0s;
     }
-    &:not(hover) img.footer_second_icon{
-        visibility: hidden;
+
+    img{
+        width: 57px;
+        height: 57px;
     }
 }
  
-
-
-
-
-  
-
-
-
-
-
-
 
 

@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 {dataId: 1, id: '_todo', title: 'To Do'},
                 {dataId: 2, id: '_inProgress', title: 'In Progress'},
                 {dataId: 3, id: '_done', title: 'Done'},
-                {dataId: 4, id: '_delete', title: 'Delete'}
+                {dataId: 4, id: '_doTomorrow', title: 'Do Tomorrow'}
             ];
 
         }
@@ -139,6 +139,12 @@ document.addEventListener("DOMContentLoaded", function() {
 //***************************************************************************************************
     class Column {
         constructor(dataId, id, title) {
+            const topDropZone = DropZone.createDropZone();
+            // const bigDropZone = DropZone.createDropZone();
+            // bigDropZone.classList.add('_last');
+            topDropZone.classList.add('_first');
+
+
             this.elements = {};
             this.elements.root = Column.createRoot();
             this.elements.title = this.elements.root.querySelector('.column__title span');
@@ -148,6 +154,9 @@ document.addEventListener("DOMContentLoaded", function() {
             this.elements.root.id = id;
             this.elements.root.dataset.id = dataId;
             this.elements.title.textContent = title;
+
+            this.elements.items.appendChild(topDropZone);
+            // this.elements.items.append(bigDropZone);
 
             this.elements.addBtn.addEventListener('click', () => {
                 //TODO: add item---------------
@@ -161,6 +170,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 this.renderItem(item);
             });
 
+// ---------------allow to drop---------------- 
+            // this.elements.items.addEventListener('dragover', e => {
+            //     e.preventDefault();
+            // });
         }
 
         static createRoot() {
@@ -198,6 +211,8 @@ document.addEventListener("DOMContentLoaded", function() {
 //***************************************************************************
     class Item {
         constructor(id, content) {
+            const bottomDropZone = DropZone.createDropZone();
+
             this.elements = {};
             this.elements.root = Item.createItemRoot();
             this.elements.input = this.elements.root.querySelector('.column__item-input');
@@ -205,6 +220,7 @@ document.addEventListener("DOMContentLoaded", function() {
             this.elements.root.dataset.id = id;
             this.elements.input.textContent = content;
             this.content = content; //??
+            this.elements.root.appendChild(bottomDropZone);
 
             const onBlur = () => {
                 const newContent = this.elements.input.textContent.trim();
@@ -216,14 +232,63 @@ document.addEventListener("DOMContentLoaded", function() {
             };
 
             this.elements.input.addEventListener('blur', onBlur);
-            this.elements.root.addEventListener('dblclick', () => {
+
+//--------delete item by dblclick-----------------------------------------------------
+//----------------------------------------------------------------------------------
+            // this.elements.root.addEventListener('dblclick', () => {
+            //     const check = confirm('Are you sure you want to delete this item?');
+            //     if (check) {
+            //         KanbanAPI.deleteItem(id);
+            //         this.elements.input.removeEventListener('blur', onBlur);
+            //         this.elements.root.parentElement.removeChild(this.elements.root);
+            //     }
+            // });
+
+////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////delete btn//////////////////////////////////////////////////////////////
+            const deleteBtn = document.createElement('div');
+            deleteBtn.classList.add('deleteBtn');
+            deleteBtn.style.cssText = `
+            display: block;
+            position: absolute;
+            width: 45px;
+            min-height: 45px;
+            right: -12px;
+            z-index: 2;
+            top: 0px;
+            `;
+            this.elements.root.appendChild(deleteBtn); 
+            deleteBtn.addEventListener('mouseover', e =>{
+                deleteBtn.classList.add('_active');
+
+            });
+            deleteBtn.addEventListener('mouseout', e =>{
+                deleteBtn.classList.remove('_active');
+
+            });
+
+            deleteBtn.addEventListener('click', event=>{
                 const check = confirm('Are you sure you want to delete this item?');
                 if (check) {
                     KanbanAPI.deleteItem(id);
                     this.elements.input.removeEventListener('blur', onBlur);
                     this.elements.root.parentElement.removeChild(this.elements.root);
+                    this.elements.root.removeChild(deleteBtn); 
+                } else {
+                    return;
                 }
             });
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+            this.elements.root.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text/plain', id);
+            } );
+
+//*********** to prevent the text appearing inside input element by accident
+            this.elements.input.addEventListener('drop', e => {
+                e.preventDefault();
+            } );
 
         }
 
@@ -232,9 +297,9 @@ document.addEventListener("DOMContentLoaded", function() {
             range.selectNode(document.body);
 
             return range.createContextualFragment(`
-            <div class="column__item _draggable" draggable="true">
-                <div class="column__item-input" contenteditable="true"> 
-                </div>
+            <div class="column__item _draggable" id="draggable" draggable="true">
+                    <div class="column__item column__item-input" contenteditable="true"> 
+                    </div>                
             </div>
             `).children[0];
         }
@@ -242,6 +307,65 @@ document.addEventListener("DOMContentLoaded", function() {
 
     }
 
+
+    class DropZone {
+        static createDropZone() {
+            const range = document.createRange();
+            range.selectNode(document.body);
+
+            const dropZone =  range.createContextualFragment(`
+            <div class="_dropzone"></div>
+            `).children[0];
+
+            //
+            dropZone.addEventListener('dragover', e => {
+                e.preventDefault();
+                dropZone.classList.add('_active');
+            });
+            dropZone.addEventListener('dragleave', e => {
+                dropZone.classList.remove('_active');
+
+            });
+
+            dropZone.addEventListener('drop', e => {
+                e.preventDefault();
+                dropZone.classList.remove('_active');
+
+                const dropColumn = dropZone.closest('.board__column');
+                const columnId = +dropColumn.dataset.id;
+                const dropZonesInColumn = Array.from(dropColumn.querySelectorAll('._dropzone'));
+                const dropZoneIndex = dropZonesInColumn.indexOf(dropZone);
+                const itemId = +e.dataTransfer.getData('text/plain');
+                const droppedItemElem = document.querySelector(`[data-id='${itemId}']`);
+                const insertAfterDropzone = dropZone.parentElement
+                    .classList.contains('column__item') ? dropZone.parentElement : dropZone;
+                
+                if (droppedItemElem.contains(dropZone)) {
+                    return;
+                }
+
+                insertAfterDropzone.after(droppedItemElem);
+
+                KanbanAPI.updateItem(itemId, {
+                    columnId,
+                    position: dropZoneIndex
+                });
+
+            });
+            return dropZone;
+
+                // const boardWrap = document.querySelector('.board__wrapper');
+                // boardWrap.addEventListener('dragover', e => {
+                // e.preventDefault();
+                // console.log('dragover');
+    // });
+        }
+    }
+
+
+    // class DropNotInDropZone {
+
+    // }
 
         // console.log(KanbanAPI.insertItem(2, 'new'));
         // KanbanAPI.insertItem(2, 'new');
@@ -259,6 +383,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+//////////////////smooth scroll to top////////////////////////////////////
+    const topBtn = document.querySelector('.btnUp');
+    topBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.documentElement.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+///////////////btn up scroll/////////////////////////////////////////////////////////////////
+    window.addEventListener('scroll', e => {
+        const scrolled = document.documentElement.scrollTop;
+        // const height = 250;
+        if (scrolled >= 250) {
+            topBtn.classList.add('_active');
+        } else {
+            topBtn.classList.remove('_active');
+        } 
+
+    });
 
 
 

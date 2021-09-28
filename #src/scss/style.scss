@@ -27,37 +27,41 @@ $grey: rgb(141, 139, 135);
 $bg:rgb(207, 202, 203);
 $darkGreen:rgb(81, 126, 75);
 $text: #333;
+$lightgreyish: rgb(229, 228, 229);
 
 
 
-body{
+html, body{
     background-color: $bg;
     width: 100%;
     height: 100%;
-    font-family: Arial, Helvetica, sans-serif; 
+    // font-family: Arial, Helvetica, ; 
+    font-family: EBGaramond, sans-serif;
     font-weight: 400;
     font-style: normal;
     font-size: 16px;
     color: $text;
+    behavior: smooth;
+
 }
 
 .wrapper{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     
 }
 
 .page{
-    flex: 1 0 auto;
-    width: 100%;
-    height: 100%;
+    flex: 1 1 auto;
+    margin: 80px 0 80px 0;
+    padding: 0 10px;
    
 }
 
 ._container{
-    max-width: 1370px;
+    max-width: 1400px;
 }
 
 
@@ -73,34 +77,26 @@ body{
     position: relative;
     width: 100%;
     height: 100%;
-    top:80px;
-    // background-color: $bg;
 
     &__wrapper{
         position: relative;
         display: flex;
         justify-content: center;
-        // align-items: center;
         width: 100%;
         height: 100%;
+        flex-wrap: wrap;
 
     }
    
-    // .board__column
-    &__column {
- 
-    }
 }
 
-
+//----column-------------------------------------------
 .column {
-    flex: 1 1 25%;
+    flex: 1;
     margin: 25px 10px 10px 10px;
-
-    
-
+    min-width: 300px;
+    max-width: 25vw;
     &__content {
-        // background-color: $white;
         background-color: rgba(251, 255, 255, 0.5);
         border-radius:10px;
         min-height: 600px;
@@ -108,75 +104,66 @@ body{
         padding: 5px;
         box-shadow: 0 0 15px rgb(182, 181, 181);
     }
-    &__item{
-        min-height: 45px;
-        border-radius:10px;
-        margin: 15px;
-        cursor: pointer;
 
-        &._dropzone {
-            min-height: 15px;
-            margin: -17px 15px;
-            transition: all ease 0.15s 0s;
-            border-radius: 0px;
-            opacity: 0;
+    &__title {
+        border-radius: 10px;    
+        height: 45px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // user-select: none;
+        span{
+            font-size: 25px;
+            font-weight: 600;
+        }
+    }
+    
+    &__content {
+        display: flex;
+        flex-direction: column;
+        // justify-content: flex-start;
+        padding: 10px 15px;
+    }
 
-            &._active{
-                filter: hue-rotate(90deg) saturate(8) contrast(100%) brightness(0.5);
-                min-height: 25px;
-                opacity: 0.8;
-                transition: all ease 0.15s 0s;
-                opacity: 1;
-
+    &__items {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        transition: all ease 0.4s 0s;
+//----big drop zone-----------------------------
+        & :last-child{
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            & ._dropzone{
+                flex: 1 1 auto;
+                height: 100%;
+                min-height: 15px;
+                &._active{
+                    min-height: 30px;
+                }
             }
-
         }
 
     }
-}
 
-
-
-
-
-
-.column__title {
-    border-radius: 10px;    
-    height: 45px;
-    // text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    // user-select: none;
-    span{
-        font-size: 25px;
-        font-weight: 500;
+    &__button {
+        flex: 0 0 auto;
+        color: $text;
+        font-size: 21px;
+        font-weight: 600;
+        margin-top: 45px;
+        transform: translateY(0px) scale(1);
+        &:hover{
+            transform: translateY(0px)  scale(1.05);
+            transition: all ease 0.3s 0s;
+            filter: hue-rotate(45deg);
+            color: #000;
+        }
     }
 }
 
-.column__content {
-    display: flex;
-    flex-direction: column;
-    // justify-content: flex-start;
-}
-
-.column__items {
-    flex: 1 1 auto;
-}
-
-.column__button {
-    flex: 0 0 auto;
-    color: $text;
-    font-size: 21px;
-    font-weight: 600;
-}
-
-
-
-
-
 #_todo .column__title{
-
     background-color: $blue;
     box-shadow: 0 0 15px $blue;
 }
@@ -188,28 +175,103 @@ body{
     background-color: $orange;
     box-shadow: 0 0 15px $orange;
 }
-#_delete .column__title{
+#_doTomorrow .column__title{
     background-color: $grey;
     box-shadow: 0 0 15px $grey;
 }
 
-#_todo .column__item{
 
-    background-color: rgba(34, 127, 171, 0.1);
-    // color: rgba(34, 127, 171, 0.1);
-    // background-color: rgba(251, 251, 251, 0.5);
+
+//----item---common---------------------------------
+
+#_todo .column__item, #_todo ._dropzone._active{
+    background-color: rgba(34, 127, 171, 0.15);
 }
-#_inProgress .column__item{
-    background-color: rgba(34, 171, 64, 0.1);
-    // color: rgba(34, 171, 64, 0.1);
+#_inProgress .column__item, #_inProgress ._dropzone._active{
+    background-color: rgba(34, 171, 64, 0.15);
 }
-#_done .column__item{
-    background-color:rgba(223, 148, 50, 0.1);
-    // color:rgba(223, 148, 50, 0.1);
+#_done .column__item, #_done ._dropzone._active{
+    background-color:rgba(223, 148, 50, 0.15);
 }
-#_delete .column__item{
-    background-color: rgba(141, 139, 135, 0.1);
-    // color: rgba(141, 139, 135, 0.1);
+#_doTomorrow .column__item, #_doTomorrow ._dropzone._active{
+    background-color: rgba(141, 139, 135, 0.15);
+}
+
+.column__item{
+    min-height: 45px;
+    border-radius:10px;
+    cursor: pointer;
+    position: relative;
+
+
+}
+
+
+//------------drop zone------------------------------------------------
+//---------------------------------------------------------------------
+._dropzone {
+
+    padding: 0;
+    margin: 0 0 0 0;
+    transition: all ease 0.4s 0s;
+    border-radius: 10px;
+    opacity: 0;
+    height: 15px;
+    width: 100%;
+    
+
+
+    &._active{
+        filter: hue-rotate(60deg) saturate(8) contrast(100%) brightness(0.5);
+        height: 30px;
+        opacity: 1;
+        transition: all ease 0.4s 0s;
+    }
+
+}
+
+
+// div ._dropzone:last-of-type{
+//     color:yellow;
+//     border: 3px yellow;
+//     height: 100px;
+//    }
+
+// ._dropzone._last{
+//     order: 999;
+//     flex: 1 1 auto;
+// }
+
+
+
+//item--specific-
+
+// .column__items :last-child{
+
+//     & ._dropzone{
+//         height: 100px;
+//     }
+
+// }
+
+
+.column__item#draggable._draggable{
+    background-color: rgb(229, 228, 229);
+
+}
+
+.column__item-input{
+    width: 100%;
+    min-height: 45px;
+    font-size: 23px;
+    display: inline-block;
+    padding: 10px;
+    margin: 0 auto ;
+    border-radius: 10px;
+    line-height: 25px;
+    word-wrap: anywhere;
+    font-weight: 600;
+    font-variant: small-caps;
 }
 
 
@@ -224,4 +286,103 @@ body{
 //-------------------------------------
 .footer{
     flex: 0 0 auto;
+}
+
+//////btn up----------------------------------------
+.btnUp{
+    position: fixed;
+    width: 57px;
+    height: 57px;
+    background: url('../img/icon_up.webp');
+    left: 50%;
+    bottom: -50px;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    transition: all ease 0.4s 0s;
+    
+    &._active{
+        bottom: 10px;
+        transition: all ease 0.4s 0s;
+        &:hover{
+        box-shadow: 0 0 10px  $grey;     
+        background-color: yellowgreen; 
+        transition: all ease 0.4s 0s;
+        }
+        a{
+            display: block;
+            width: 57px;
+            height: 57px;
+        }
+    }
+
+
+}
+
+
+#_todo .column__item, #_todo ._dropzone._active{
+    background-color: rgba(34, 127, 171, 0.15);
+}
+#_inProgress .column__item, #_inProgress ._dropzone._active{
+    background-color: rgba(34, 171, 64, 0.15);
+}
+#_done .column__item, #_done ._dropzone._active{
+    background-color:rgba(223, 148, 50, 0.15);
+}
+#_doTomorrow .column__item, #_doTomorrow ._dropzone._active{
+    background-color: rgba(141, 139, 135, 0.15);
+}
+
+
+//-----------delete btn---------------------
+.deleteBtn{
+    background-color: transparent;
+}
+.deleteBtn._active{
+    // background-color: $lightgreyish;
+    background-color: rgba(184, 181, 181, 0.5);
+    border-radius: 10px;
+    // box-shadow: 0 0 5px $bg;
+    // #_todo &{
+    //     background-color: $blue;
+    // }
+    &::before, &::after{
+        content: "";
+        width: 80%;
+        height: 3px;
+        position: absolute;
+        // background-color:rgb(168, 160, 51);
+        background-color:$text;
+        bottom: 21px;
+        left: 5px;
+
+        border-radius: 5px;
+ 
+    }
+    &::before{
+        transform: rotate(45deg);
+    }
+    &::after{
+        transform: rotate(-45deg);
+    }
+}
+
+
+//------------media----------------------------------------------
+
+@media (max-width: 768px) {
+    .page{
+        margin: 25px 0 80px 0;
+
+    }
+    
+}
+@media (max-width: 310px) {
+    .column {
+        margin: 15px 10px 10px 10px;
+        min-width: 270px;
+        &__content {
+            min-height: 500px;
+        }
+    }
+
 }
