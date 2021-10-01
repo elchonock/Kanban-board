@@ -6,7 +6,7 @@
 Set your first task [here](https://elchonock.github.io/KanbanBoardPages/).        
 You can add new tasks with "+Add" button or just dblclick empty area in a column.          
 To delete: click the button in top right corner of an item.                                    
-Move items between columns.
+Move items between columns.                     
 All changes saves in localStorage.
 
 
