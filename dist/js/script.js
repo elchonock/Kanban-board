@@ -354,29 +354,55 @@ document.addEventListener("DOMContentLoaded", function() {
 
 /////////////////////////////////////////////////////////////////////////////
 //----add new Item with dbl click
-    const allDropZones = document.querySelectorAll('._dropzone');
 
-    allDropZones.forEach(zone=> {
-        zone.addEventListener('dblclick', e=>{
-            const dropColumn = zone.closest('.board__column');
-            const columnId = +dropColumn.dataset.id;
-            const newElem = KanbanAPI.insertItem(columnId, "");
-            const colItems = dropColumn.querySelector('.column__items');
-            const newI = new Item(newElem.id, newElem.content);
-            colItems.appendChild(newI.elements.root);
+    const colContent = document.querySelectorAll('.column__content');
+
+    colContent.forEach(col=>{
+        col.addEventListener('dblclick', e=>{
+            if (e.target.classList.contains('_dropzone')) {
+                const dropColumn = e.target.closest('.board__column');
+                const columnId = +dropColumn.dataset.id;
+                const newElem = KanbanAPI.insertItem(columnId, "");
+                const colItems = dropColumn.querySelector('.column__items');
+                const newI = new Item(newElem.id, newElem.content);
+                colItems.appendChild(newI.elements.root);
+
+            }
+
         });
     });
 
 
+
+
+    // // this implementation has a bug, new _dropzone elements can't be reached and listened
+
+    // const allDropZones = document.querySelectorAll('._dropzone');
+    // allDropZones.forEach(zone=> {
+    //     zone.addEventListener('dblclick', e=>{
+    //         const dropColumn = zone.closest('.board__column');
+    //         const columnId = +dropColumn.dataset.id;
+    //         const newElem = KanbanAPI.insertItem(columnId, "");
+    //         const colItems = dropColumn.querySelector('.column__items');
+    //         const newI = new Item(newElem.id, newElem.content);
+    //         colItems.appendChild(newI.elements.root);
+            
+    //     });
+
+    // });
+
+
+
 //////////////////smooth scroll to top////////////////////////////////////
     const topBtn = document.querySelector('.btnUp');
-    topBtn.addEventListener('click', (e) => {
+    let aElemToTop = topBtn.querySelector('a');
+    aElemToTop.addEventListener('click', (e) => {
             e.preventDefault();
-            document.documentElement.scrollTo({
+            window.scrollTo({
                 top: 0,
-                behavior: 'smooth'
+                behavior: "smooth"
             });
-        });
+        });        
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -393,6 +419,26 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+    // Hide Hint
+    // add _hidden-hint class to first column__content element to hide hint
+    
+    const colContentHint = document.querySelector('#_todo .column__content');
+
+    if (localStorage.getItem('hint') && localStorage.getItem('hint') == 'hidden') {
+        colContentHint.classList.add('_hidden-hint');
+    } else {
+        localStorage.setItem('hint', '');
+        colContentHint.addEventListener('click', e=>{
+            colContentHint.classList.add('_hidden-hint');
+            localStorage.setItem('hint', 'hidden');
+        });
+    }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 });

@@ -189,7 +189,7 @@ body {
   font-style: normal;
   font-size: 16px;
   color: #333;
-  behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 .wrapper {
@@ -260,7 +260,7 @@ body {
 }
 
 .column__content {
-  background-color: rgba(251, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
   min-height: 600px;
   margin: 5px 0px;
@@ -459,7 +459,7 @@ body {
 }
 
 .column__item#draggable._draggable {
-  background-color: #e5e4e5;
+  background-color: rgba(255, 255, 255, 0);
 }
 
 .column__item-input {
@@ -558,6 +558,53 @@ body {
   -webkit-transform: rotate(-45deg);
       -ms-transform: rotate(-45deg);
           transform: rotate(-45deg);
+}
+
+#_todo .column__content::before {
+  content: "Write your first task here! ";
+  text-align: center;
+  position: absolute;
+  top: 20px;
+  left: -225px;
+  width: 220px;
+  min-height: 70px;
+  background-color: #fff;
+  border-radius: 10px;
+  color: #333;
+  font-size: 23px;
+  padding: 15px;
+  display: inline;
+  font-weight: 600;
+  font-variant: small-caps;
+  -webkit-box-shadow: 0 0 15px #8d8b87;
+          box-shadow: 0 0 15px #8d8b87;
+  -webkit-transition: all ease 0.3s 0s;
+  -o-transition: all ease 0.3s 0s;
+  transition: all ease 0.3s 0s;
+}
+
+#_todo .column__content::after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: -52px;
+  width: 50px;
+  height: 0px;
+  border-radius: 3px;
+  border-right: 40px rgba(255, 0, 0, 0) solid;
+  border-left: 40px rgba(0, 119, 255, 0) solid;
+  border-top: 40px rgba(0, 255, 98, 0) solid;
+  border-bottom: 45px #fff solid;
+  -webkit-transform: rotate3d(1, 0, 1, 20deg);
+          transform: rotate3d(1, 0, 1, 20deg);
+  -webkit-transition: all ease 0.3s 0s;
+  -o-transition: all ease 0.3s 0s;
+  transition: all ease 0.3s 0s;
+}
+
+#_todo .column__content._hidden-hint::before,
+#_todo .column__content._hidden-hint::after {
+  display: none;
 }
 
 @media (max-width: 768px) {
