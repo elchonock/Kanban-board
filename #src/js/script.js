@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return [
                 {
                     id: 1,
-                    items:[{id: 11111, content: 'write your first task here..'}]
+                    items:[{id: 11111, content: ''}]
                 },
                 {
                     id: 2,
