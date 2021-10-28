@@ -4,10 +4,10 @@
 ![review](https://github.com/elchonock/Kanban-board/blob/main/%23src/img/preview.gif)
 
 Set your first task [here](https://elchonock.github.io/KanbanBoardPages/).        
-You can add new tasks with "+Add" button or just dblclick empty area in a column.          
-To delete: click the button in top right corner of an item.                                    
+You can add new tasks with "+Add" button or just dblclick the empty area in a column.          
+To delete: click the button in the top right corner of an item.                                    
 Move items between columns.                     
-All changes saves in localStorage.
+All changes will be saved in localStorage.
 
 
 In this project I mastered:
